@@ -1,0 +1,6 @@
+.vercel
+.claude
+*.zip
+*.rar
+uploads/
+screenshots/
