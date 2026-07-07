@@ -125,8 +125,8 @@ const NISE_I18N = {
       h2: 'Small team. Long-term thinking.',
       lead: 'Creative, technical and strategic — building modern digital solutions for Malaysian communities.',
       members: [
-        { role: 'Founder & Growth Strategist', bio: 'Leads strategic direction at NISE — expertise in digital ecosystem development, growth strategy, and brand positioning for modern organizations, communities and masjid.' },
-        { role: 'Chief Technical Officer',     bio: 'Leads technical development at NISE — building websites, dashboards and centralized systems with focus on architecture, scalability and clean UX.' },
+        { role: 'CEO & Founder', bio: 'Leads strategic direction at NISE — expertise in digital ecosystem development, growth strategy, and brand positioning for modern organizations, communities and masjid.' },
+        { role: 'Developer',     bio: 'Leads technical development at NISE — building websites, dashboards and centralized systems with focus on architecture, scalability and clean UX.' },
       ],
     },
     support: {
@@ -293,8 +293,8 @@ const NISE_I18N = {
       h2: 'Pasukan kecil. Pemikiran jangka panjang.',
       lead: 'Kreatif, teknikal dan strategik — membina penyelesaian digital moden untuk komuniti Malaysia.',
       members: [
-        { role: 'Pengasas & Ahli Strategi Pertumbuhan', bio: 'Mengetuai hala tuju strategik di NISE — kepakaran dalam pembangunan ekosistem digital, strategi pertumbuhan, dan penjenamaan untuk organisasi, komuniti dan masjid moden.' },
-        { role: 'Ketua Pegawai Teknikal',                bio: 'Mengetuai pembangunan teknikal di NISE — membina laman web, dashboard dan sistem berpusat dengan fokus pada seni bina, kebolehskalaan dan UX yang bersih.' },
+        { role: 'CEO & Pengasas', bio: 'Mengetuai hala tuju strategik di NISE — kepakaran dalam pembangunan ekosistem digital, strategi pertumbuhan, dan penjenamaan untuk organisasi, komuniti dan masjid moden.' },
+        { role: 'Pembangun',      bio: 'Mengetuai pembangunan teknikal di NISE — membina laman web, dashboard dan sistem berpusat dengan fokus pada seni bina, kebolehskalaan dan UX yang bersih.' },
       ],
     },
     support: {
