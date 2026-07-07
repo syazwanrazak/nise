@@ -5,6 +5,8 @@
 /* MASJID — Smart Mosque Ecosystem                                     */
 /* ------------------------------------------------------------------ */
 function Masjid() {
+  const { t } = useLang();
+  const m = t.masjid;
   return (
     <section id="masjid" className="masjid">
       <div className="pattern-bg" />
@@ -13,73 +15,57 @@ function Masjid() {
         <div className="masjid-left">
           <Reveal>
             <span className="chip" style={{ background: 'rgba(255,255,255,.08)', color: '#E9F0EB' }}>
-              <span className="dot" /> Fokus Khusus
+              <span className="dot" /> {m.chip}
             </span>
           </Reveal>
           <Reveal delay={100}>
             <h2 className="masjid-h2">
-              Ekosistem digital<br />
-              <span className="serif" style={{ color: 'var(--accent-2)' }}>masjid pintar</span>.
+              {m.h2.line1}<br />
+              <span className="serif" style={{ color: 'var(--accent-2)' }}>{m.h2.accent}</span>{m.h2.tail}
             </h2>
           </Reveal>
           <Reveal delay={200}>
-            <p className="masjid-lead">
-              A centralized website platform for masjid — more organized,
-              more professional, suited for JAIS and state administrations.
-            </p>
+            <p className="masjid-lead">{m.lead}</p>
           </Reveal>
 
           <div className="masjid-stats">
-            <Reveal delay={300}>
-              <div className="masjid-stat">
-                <Icon.mosque />
-                <div>
-                  <div className="masjid-stat-num">JAIS-ready</div>
-                  <div className="masjid-stat-lbl">Sesuai untuk pengurusan negeri</div>
-                </div>
-              </div>
-            </Reveal>
-            <Reveal delay={400}>
-              <div className="masjid-stat">
-                <Icon.heart />
-                <div>
-                  <div className="masjid-stat-num">Community-first</div>
-                  <div className="masjid-stat-lbl">Direka untuk jemaah dan kariah</div>
-                </div>
-              </div>
-            </Reveal>
+            {m.stats.map((stat, i) => {
+              const I = Icon[stat.icon];
+              return (
+                <Reveal delay={300 + i * 100} key={i}>
+                  <div className="masjid-stat">
+                    <I />
+                    <div>
+                      <div className="masjid-stat-num">{stat.num}</div>
+                      <div className="masjid-stat-lbl">{stat.lbl}</div>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
 
         <div className="masjid-right">
-          <Reveal>
-            <div className="masjid-card">
-              <h4 className="masjid-card-h">Sesuai untuk</h4>
-              <ul className="masjid-list">
-                <li><Icon.check /> Masjid belum mempunyai website rasmi</li>
-                <li><Icon.check /> Masjid dengan website lama perlu revamp</li>
-                <li><Icon.check /> Masjid yang mahu tambah fitur moden</li>
-              </ul>
-            </div>
-          </Reveal>
-          <Reveal delay={150}>
-            <div className="masjid-card">
-              <h4 className="masjid-card-h">Matlamat utama</h4>
-              <ul className="masjid-list">
-                <li><Icon.spark /> Tingkatkan kehadiran jemaah</li>
-                <li><Icon.spark /> Mudahkan pengurusan masjid</li>
-                <li><Icon.spark /> Perluaskan hebahan program</li>
-                <li><Icon.spark /> Bantu penjanaan dana masjid</li>
-              </ul>
-            </div>
-          </Reveal>
+          {m.cards.map((card, i) => {
+            const I = Icon[card.icon];
+            return (
+              <Reveal delay={i * 150} key={i}>
+                <div className="masjid-card">
+                  <h4 className="masjid-card-h">{card.h}</h4>
+                  <ul className="masjid-list">
+                    {card.items.map((it, j) => (
+                      <li key={j}><I /> {it}</li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
 
         <Reveal>
-          <blockquote className="masjid-quote">
-            "Membantu masjid bergerak seiring perkembangan teknologi
-            dan komuniti masa kini."
-          </blockquote>
+          <blockquote className="masjid-quote">"{m.quote}"</blockquote>
         </Reveal>
       </div>
 
@@ -154,73 +140,27 @@ function Masjid() {
 /* ------------------------------------------------------------------ */
 /* PORTFOLIO                                                           */
 /* ------------------------------------------------------------------ */
+const PORTFOLIO_META = {
+  cetak:      { url: 'designcetak.com',            live: 'https://designcetak.com',            modules: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Firebase'], status: 'live', screenshot: 'assets/portfolio/designcetak.png' },
+  masjid:     { url: 'masjidalitisam.vercel.app',  live: 'https://masjidalitisam.vercel.app',  modules: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'Firebase'], status: 'live', screenshot: 'assets/portfolio/masjidalitisam.png' },
+  salon:      { url: 'salon-nabella.vercel.app',    live: 'https://salon-nabella.vercel.app',    modules: ['React 18', 'Vite', 'Firebase Firestore', 'Tailwind CSS'], status: 'live', screenshot: 'assets/portfolio/salonnabela.png' },
+  balikpulau: { url: 'balikpulauinn.vercel.app',    live: 'https://balikpulauinn.vercel.app',    modules: ['HTML', 'CSS', 'JavaScript'], status: 'live', screenshot: 'assets/portfolio/balikpulauinn.png' },
+  sewana:     { url: 'sewana-3517.vercel.app',      live: 'https://sewana-3517.vercel.app',      modules: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase'], status: 'in-progress', screenshot: 'assets/portfolio/sewana.png' },
+};
+
 function Portfolio() {
+  const { t } = useLang();
+  const pf = t.portfolio;
   const [active, setActive] = React.useState(0);
-  const projects = [
-    {
-      key: 'cetak',
-      tag: 'E-Commerce',
-      title: 'Design Cetak — Print E-commerce',
-      desc: 'Full ordering platform for a printing business — product catalog, file uploads, and WhatsApp-based order confirmation, with an admin panel to track incoming orders.',
-      url: 'designcetak.com',
-      live: 'https://designcetak.com',
-      modules: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Firebase'],
-      status: 'live',
-      screenshot: 'assets/portfolio/designcetak.png'
-    },
-    {
-      key: 'masjid',
-      tag: 'Smart Mosque',
-      title: 'Masjid Al-Itisam TTDI Jaya',
-      desc: 'Bilingual community portal with live prayer times, announcements and a secure admin panel for managing community records — built with zero ongoing server cost.',
-      url: 'masjidalitisam.vercel.app',
-      live: 'https://masjidalitisam.vercel.app',
-      modules: ['Next.js 16', 'TypeScript', 'Tailwind CSS', 'Firebase'],
-      status: 'live',
-      screenshot: 'assets/portfolio/masjidalitisam.png'
-    },
-    {
-      key: 'salon',
-      tag: 'Queue Management',
-      title: 'Salon Nabela — Live Queue System',
-      desc: '3-screen system for a salon: customer self-registration, live staff dashboard, and TV display — with smart auto staff assignment based on workload.',
-      url: 'salon-nabella.vercel.app',
-      live: 'https://salon-nabella.vercel.app',
-      modules: ['React 18', 'Vite', 'Firebase Firestore', 'Tailwind CSS'],
-      status: 'live',
-      screenshot: 'assets/portfolio/salonnabela.png'
-    },
-    {
-      key: 'balikpulau',
-      tag: 'Hospitality',
-      title: 'Balik Pulau Inn — Homestay',
-      desc: 'Responsive site for a Penang kampung homestay — hero slideshow, filterable photo gallery with lightbox, and a WhatsApp booking enquiry form.',
-      url: 'balikpulauinn.vercel.app',
-      live: 'https://balikpulauinn.vercel.app',
-      modules: ['HTML', 'CSS', 'JavaScript'],
-      status: 'live',
-      screenshot: 'assets/portfolio/balikpulauinn.png'
-    },
-    {
-      key: 'sewana',
-      tag: 'Property Management',
-      title: 'Sewana — Rental Dashboard',
-      desc: 'Web app for landlords and property managers to manage multiple rental units — tenant records, payment tracking, and a property overview dashboard.',
-      url: 'sewana-3517.vercel.app',
-      live: 'https://sewana-3517.vercel.app',
-      modules: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase'],
-      status: 'in-progress',
-      screenshot: 'assets/portfolio/sewana.png'
-    }
-  ];
+  const projects = pf.projects.map((p) => ({ ...p, ...PORTFOLIO_META[p.key] }));
   const p = projects[active];
 
   return (
     <section id="portfolio" className="portfolio">
       <div className="wrap">
         <div className="sec-head">
-          <Reveal><span className="eyebrow">Rekod Kami / Selected work</span></Reveal>
-          <Reveal delay={100}><h2>Systems we've built — and the communities they serve.</h2></Reveal>
+          <Reveal><span className="eyebrow">{pf.eyebrow}</span></Reveal>
+          <Reveal delay={100}><h2>{pf.h2}</h2></Reveal>
         </div>
 
         <div className="port-grid">
@@ -244,7 +184,7 @@ function Portfolio() {
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   <span className="chip">{p.tag}</span>
                   {p.status === 'in-progress' && (
-                    <span className="chip chip-progress">In Progress</span>
+                    <span className="chip chip-progress">{pf.inProgress}</span>
                   )}
                 </div>
                 <h3 className="port-title">{p.title}</h3>
@@ -354,26 +294,23 @@ function Portfolio() {
 /* ------------------------------------------------------------------ */
 /* TEAM                                                                */
 /* ------------------------------------------------------------------ */
+const TEAM_META = [
+  { name: 'Danny',   initials: 'D', tint: 'a' },
+  { name: 'Syazwan', initials: 'S', tint: 'b' },
+];
+
 function Team() {
-  const members = [
-    { name: 'Danny', role: 'Founder & Growth Strategist',
-      bio: 'Leads strategic direction at NISE — expertise in digital ecosystem development, growth strategy, and brand positioning for modern organizations, communities and masjid.',
-      initials: 'D', tint: 'a' },
-    { name: 'Syazwan', role: 'Chief Technical Officer',
-      bio: 'Leads technical development at NISE — building websites, dashboards and centralized systems with focus on architecture, scalability and clean UX.',
-      initials: 'S', tint: 'b' },
-  ];
+  const { t } = useLang();
+  const tm = t.team;
+  const members = tm.members.map((m, i) => ({ ...m, ...TEAM_META[i] }));
   return (
     <section id="team" className="team">
       <div className="wrap">
         <div className="sec-head">
-          <Reveal><span className="eyebrow">Orang Di Sebalik NISE / Our team</span></Reveal>
-          <Reveal delay={100}><h2>Small team. Long-term thinking.</h2></Reveal>
+          <Reveal><span className="eyebrow">{tm.eyebrow}</span></Reveal>
+          <Reveal delay={100}><h2>{tm.h2}</h2></Reveal>
           <Reveal delay={200}>
-            <p className="lead">
-              Creative, technical and strategic — building modern digital solutions
-              for Malaysian communities.
-            </p>
+            <p className="lead">{tm.lead}</p>
           </Reveal>
         </div>
 
@@ -436,28 +373,21 @@ function Team() {
 /* SUPPORT                                                             */
 /* ------------------------------------------------------------------ */
 function Support() {
-  const items = [
-    { icon: 'chat',   title: 'Technical Support', desc: 'WhatsApp support whenever you need it.' },
-    { icon: 'shield', title: 'Security Monitoring', desc: 'Regular checks and the latest updates.' },
-    { icon: 'cloud',  title: 'Backup System', desc: 'Automatic backups — data sentiasa selamat.' },
-    { icon: 'book',   title: 'Admin Training', desc: 'Training so your admin can run the system confidently.' },
-  ];
+  const { t } = useLang();
+  const sp = t.support;
   return (
     <section id="support" className="support">
       <div className="wrap">
         <div className="sec-head">
-          <Reveal><span className="eyebrow">Sokongan & Maintenance / We stay with you</span></Reveal>
-          <Reveal delay={100}><h2>Launch is the beginning — not the end.</h2></Reveal>
+          <Reveal><span className="eyebrow">{sp.eyebrow}</span></Reveal>
+          <Reveal delay={100}><h2>{sp.h2}</h2></Reveal>
           <Reveal delay={200}>
-            <p className="lead">
-              Kerja kami tidak berhenti di pelancaran. We keep your system
-              running, secure and up to date.
-            </p>
+            <p className="lead">{sp.lead}</p>
           </Reveal>
         </div>
 
         <Stagger className="grid-4">
-          {items.map((it, i) => {
+          {sp.items.map((it, i) => {
             const I = Icon[it.icon];
             return (
               <div key={i} className="support-card card">
@@ -477,48 +407,36 @@ function Support() {
 /* VISION                                                              */
 /* ------------------------------------------------------------------ */
 function Vision() {
+  const { t } = useLang();
+  const v = t.vision;
+  const [h2Ref, h2Seen] = useReveal();
   return (
     <section id="vision" className="vision">
       <div className="pattern-bg" />
       <div className="wrap">
         <div className="vision-inner">
-          <Reveal><span className="eyebrow">Visi Kami / Our vision</span></Reveal>
+          <Reveal><span className="eyebrow">{v.eyebrow}</span></Reveal>
 
-          <h2 className="vision-h2 lines">
-            <span>Membina masa depan</span>
-            <span>digital yang lebih</span>
-            <span className="serif" style={{ color: 'var(--accent)' }}>connected.</span>
+          <h2 ref={h2Ref} className={`vision-h2 lines ${h2Seen ? 'in' : ''}`}>
+            <span>{v.h2.lines[0]}</span>
+            <span>{v.h2.lines[1]}</span>
+            <span className="serif" style={{ color: 'var(--accent)' }}>{v.h2.accent}</span>
           </h2>
 
           <Reveal delay={400}>
-            <p className="vision-quote serif">
-              "Teknologi yang baik bukan sekadar cantik — tetapi membantu
-              manusia berhubung dengan lebih baik."
-            </p>
+            <p className="vision-quote serif">"{v.quote}"</p>
           </Reveal>
 
           <Stagger className="vision-points">
-            <div className="vision-point">
-              <span className="vision-point-num">01</span>
-              <div>
-                <h4>Lebih Moden</h4>
-                <p>Relevant to today’s digital needs.</p>
+            {v.points.map((pt, i) => (
+              <div className="vision-point" key={i}>
+                <span className="vision-point-num">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h4>{pt.title}</h4>
+                  <p>{pt.desc}</p>
+                </div>
               </div>
-            </div>
-            <div className="vision-point">
-              <span className="vision-point-num">02</span>
-              <div>
-                <h4>Lebih Tersusun</h4>
-                <p>Centralized operations, organized data, efficient management.</p>
-              </div>
-            </div>
-            <div className="vision-point">
-              <span className="vision-point-num">03</span>
-              <div>
-                <h4>Lebih Connected</h4>
-                <p>Organizations and communities in one ecosystem.</p>
-              </div>
-            </div>
+            ))}
           </Stagger>
         </div>
       </div>
@@ -559,6 +477,8 @@ function Vision() {
 /* CTA + FOOTER                                                        */
 /* ------------------------------------------------------------------ */
 function CTA() {
+  const { t } = useLang();
+  const c = t.cta;
   return (
     <section id="contact" className="cta-sec">
       <div className="wrap">
@@ -567,28 +487,25 @@ function CTA() {
             <div className="pattern-bg" />
             <div className="cta-inner">
               <span className="chip" style={{ background: 'rgba(255,255,255,.08)', color: 'white' }}>
-                <span className="dot" /> Mulakan Perbualan
+                <span className="dot" /> {c.chip}
               </span>
               <h2 className="cta-h2">
-                Let's build something<br/>
-                <span className="serif" style={{ color: 'var(--accent-2)' }}>meaningful</span> together.
+                {c.h2.pre}<br/>
+                <span className="serif" style={{ color: 'var(--accent-2)' }}>{c.h2.accent}</span>{c.h2.post}
               </h2>
-              <p className="cta-lead">
-                A free consultation to understand your digital needs —
-                and recommend the right solution.
-              </p>
+              <p className="cta-lead">{c.lead}</p>
               <div className="cta-tickets">
-                <span><Icon.check /> Free consultation</span>
-                <span><Icon.check /> No commitment</span>
-                <span><Icon.check /> Live demo available</span>
+                <span><Icon.check /> {c.tickets[0]}</span>
+                <span><Icon.check /> {c.tickets[1]}</span>
+                <span><Icon.check /> {c.tickets[2]}</span>
               </div>
               <div className="cta-actions">
-                <a className="btn" style={{ background: 'white', color: 'var(--ink)' }} href="https://wa.me/60111142046" target="_blank" rel="noopener noreferrer">
-                  <Icon.whatsapp /> WhatsApp Danny
+                <a className="btn" style={{ background: 'white', color: 'var(--ink)' }} href="https://wa.me/601111420466" target="_blank" rel="noopener noreferrer">
+                  <Icon.whatsapp /> {c.whatsapp}
                   <span className="arr"><Icon.arrow /></span>
                 </a>
                 <a className="btn btn-ghost" style={{ borderColor: 'rgba(255,255,255,.25)', color: 'white', background: 'transparent' }} href="mailto:ats.danial@nuklearmarketing.com">
-                  <Icon.mail /> Email us
+                  <Icon.mail /> {c.email}
                 </a>
               </div>
             </div>
@@ -628,6 +545,8 @@ function CTA() {
 }
 
 function Footer() {
+  const { t } = useLang();
+  const f = t.footer;
   return (
     <footer id="footer" className="site-foot">
       <div className="pattern-bg" />
@@ -635,45 +554,42 @@ function Footer() {
         <div className="foot-grid">
           <div>
             <img className="foot-logo" src="assets/brand/logo.jpeg" alt="NISE Enterprise" />
-            <p className="foot-tag">
-              Smart digital ecosystem solutions for organizations, masjid
-              and modern communities across Malaysia.
-            </p>
+            <p className="foot-tag">{f.tag}</p>
           </div>
 
           <div>
-            <h5 className="foot-h">Hubungi kami</h5>
+            <h5 className="foot-h">{f.contactHeading}</h5>
             <ul className="foot-list">
               <li><Icon.pin /><span>No. 9 Jalan Sastera 4 U2/1D<br/>TTDI Jaya, 40150 Shah Alam, Selangor</span></li>
-              <li><Icon.phone /><a href="tel:+60111142046">011-1142 0466 (Danny)</a></li>
+              <li><Icon.phone /><a href="tel:+601111420466">011-1142 0466 (Danny)</a></li>
               <li><Icon.mail /><a href="mailto:ats.danial@nuklearmarketing.com">ats.danial@nuklearmarketing.com</a></li>
             </ul>
           </div>
 
           <div>
-            <h5 className="foot-h">Services</h5>
+            <h5 className="foot-h">{f.servicesHeading}</h5>
             <ul className="foot-list">
-              <li><a href="#services">Website Development</a></li>
-              <li><a href="#services">System Development</a></li>
-              <li><a href="#masjid">Masjid Digitalization</a></li>
-              <li><a href="#support">Support & Maintenance</a></li>
+              <li><a href="#services">{f.servicesList[0]}</a></li>
+              <li><a href="#services">{f.servicesList[1]}</a></li>
+              <li><a href="#masjid">{f.servicesList[2]}</a></li>
+              <li><a href="#support">{f.servicesList[3]}</a></li>
             </ul>
           </div>
 
           <div>
-            <h5 className="foot-h">Get in touch</h5>
-            <a className="btn" style={{ background: '#25D366', color: 'white' }} href="https://wa.me/60111142046" target="_blank" rel="noopener noreferrer">
-              <Icon.whatsapp /> WhatsApp us
+            <h5 className="foot-h">{f.getInTouch}</h5>
+            <a className="btn" style={{ background: '#25D366', color: 'white' }} href="https://wa.me/601111420466" target="_blank" rel="noopener noreferrer">
+              <Icon.whatsapp /> {f.whatsapp}
             </a>
             <p style={{ fontSize: 12, color: 'rgba(255,255,255,.45)', marginTop: 16, lineHeight: 1.6 }}>
-              Available Mon–Sat,<br/>9am – 7pm Malaysia time.
+              {f.availability[0]}<br/>{f.availability[1]}
             </p>
           </div>
         </div>
 
         <div className="foot-bottom">
-          <div>© 2025 NISE Enterprise. Built with care in Malaysia.</div>
-          <div className="foot-bottom-end">Smart Digital Ecosystem Solutions</div>
+          <div>{f.copyright}</div>
+          <div className="foot-bottom-end">{f.tagline}</div>
         </div>
       </div>
 

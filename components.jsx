@@ -113,6 +113,7 @@ function Btn({ kind = 'primary', children, href, onClick, icon = true, ...rest }
 /* ------------------------------------------------------------------ */
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLang();
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
@@ -126,15 +127,13 @@ function Nav() {
         <span>NISE <span style={{ color: 'var(--ink-3)', fontWeight: 400 }}>Enterprise</span></span>
       </a>
       <div className="nav-links">
-        <a href="#solution">Solution</a>
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-        <a href="#masjid">Masjid</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
+        {t.nav.links.map((l) => (
+          <a key={l.href} href={l.href}>{l.label}</a>
+        ))}
       </div>
+      <LangToggle />
       <a href="#contact" className="btn nav-cta-desktop" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>
-        Book consultation
+        {t.nav.cta}
         <span className="arr"><Icon.arrow /></span>
       </a>
       <a href="#contact" className="nav-menu-btn nav-cta-mobile" aria-label="Contact">

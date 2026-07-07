@@ -5,32 +5,17 @@
 /* SOLUTION — Connected ecosystem diagram                              */
 /* ------------------------------------------------------------------ */
 function Solution() {
-  const modules = [
-    { id: 'web',   icon: 'globe',    title: 'Website Rasmi',
-      desc: 'Pusat maklumat online yang sentiasa terkini.' },
-    { id: 'dash',  icon: 'grid',     title: 'Dashboard Admin',
-      desc: 'Kawalan penuh operasi dari satu panel.', primary: true },
-    { id: 'ann',   icon: 'bell',     title: 'Announcement System',
-      desc: 'Hantar berita terus kepada komuniti.' },
-    { id: 'evt',   icon: 'calendar', title: 'Event Management',
-      desc: 'Urus program, ceramah dan aktiviti.' },
-    { id: 'com',   icon: 'users',    title: 'Community System',
-      desc: 'Hubungkan ahli dalam satu ekosistem.' },
-    { id: 'pay',   icon: 'wallet',   title: 'Donation & Payment',
-      desc: 'Terima derma dan bayaran secara selamat.' },
-  ];
+  const { t } = useLang();
+  const s = t.solution;
   return (
     <section id="solution" className="solution">
       <div className="pattern-bg" />
       <div className="wrap">
         <div className="sec-head">
-          <Reveal><span className="eyebrow">Penyelesaian Kami / Our Solution</span></Reveal>
-          <Reveal delay={100}><h2>Sistem digital berpusat — <span className="serif" style={{ color: 'var(--accent)' }}>satu ekosistem</span>, semua operasi.</h2></Reveal>
+          <Reveal><span className="eyebrow">{s.eyebrow}</span></Reveal>
+          <Reveal delay={100}><h2>{s.h2.pre}<span className="serif" style={{ color: 'var(--accent)' }}>{s.h2.accent}</span>{s.h2.post}</h2></Reveal>
           <Reveal delay={200}>
-            <p className="lead">
-              Every module talks to the next. Komuniti, kewangan, acara dan komunikasi
-              — dari satu tempat.
-            </p>
+            <p className="lead">{s.lead}</p>
           </Reveal>
         </div>
 
@@ -63,7 +48,7 @@ function Solution() {
           </svg>
 
           <div className="modules">
-            {modules.map((m, i) => {
+            {s.modules.map((m, i) => {
               const I = Icon[m.icon];
               return (
                 <div key={m.id} className={`module module-${m.id} ${m.primary ? 'module-primary' : ''}`}>
@@ -81,10 +66,7 @@ function Solution() {
         </div>
 
         <Reveal>
-          <blockquote className="pull" style={{ marginTop: 'clamp(48px, 6vw, 72px)' }}>
-            "Satu sistem untuk memudahkan pengurusan dan menghubungkan
-            organisasi dengan komuniti."
-          </blockquote>
+          <blockquote className="pull" style={{ marginTop: 'clamp(48px, 6vw, 72px)' }}>"{s.quote}"</blockquote>
         </Reveal>
       </div>
 
@@ -174,47 +156,36 @@ function Solution() {
 /* SERVICES                                                            */
 /* ------------------------------------------------------------------ */
 function Services() {
-  const items = [
-    { icon: 'monitor', tag: '01', title: 'Website Development',
-      bullets: ['Corporate & organization websites', 'Professional landing pages', 'Responsive design & custom UI/UX'] },
-    { icon: 'layers',  tag: '02', title: 'System Development',
-      bullets: ['Centralized admin dashboards', 'Booking & event management', 'Community & database systems'] },
-    { icon: 'mosque',  tag: '03', title: 'Masjid Digitalization',
-      bullets: ['Official masjid websites', 'Donation & community systems', 'Live programs & announcements'] },
-    { icon: 'tool',    tag: '04', title: 'Support & Maintenance',
-      bullets: ['Technical support & security updates', 'Automated backup systems', 'Ongoing admin training'] },
-  ];
+  const { t } = useLang();
+  const s = t.services;
   return (
     <section id="services" className="services">
       <div className="wrap">
         <div className="sec-head">
-          <Reveal><span className="eyebrow">Apa Yang Kami Tawarkan / What we offer</span></Reveal>
-          <Reveal delay={100}><h2>Servis utama yang kami bina untuk anda.</h2></Reveal>
+          <Reveal><span className="eyebrow">{s.eyebrow}</span></Reveal>
+          <Reveal delay={100}><h2>{s.h2}</h2></Reveal>
           <Reveal delay={200}>
-            <p className="lead">
-              From a landing page to a full community system — practical,
-              well-built, supported after launch.
-            </p>
+            <p className="lead">{s.lead}</p>
           </Reveal>
         </div>
 
         <Stagger className="services-grid">
-          {items.map((s, i) => {
-            const I = Icon[s.icon];
+          {s.items.map((it, i) => {
+            const I = Icon[it.icon];
             return (
               <article key={i} className="service card cardlink" tabIndex="0">
                 <div className="service-top">
                   <div className="icon-tile"><I /></div>
-                  <span className="service-tag">{s.tag}</span>
+                  <span className="service-tag">{it.tag}</span>
                 </div>
-                <h3 className="service-title">{s.title}</h3>
+                <h3 className="service-title">{it.title}</h3>
                 <ul className="service-bullets">
-                  {s.bullets.map((b, j) => (
+                  {it.bullets.map((b, j) => (
                     <li key={j}><Icon.check className="check" />{b}</li>
                   ))}
                 </ul>
                 <span className="hover-arr" style={{ marginTop: 24 }}>
-                  Learn more <Icon.arrow />
+                  {s.learnMore} <Icon.arrow />
                 </span>
               </article>
             );
@@ -222,10 +193,7 @@ function Services() {
         </Stagger>
 
         <Reveal>
-          <blockquote className="pull" style={{ marginTop: 'clamp(48px, 6vw, 72px)' }}>
-            "Fokus utama kami adalah membina sistem yang praktikal
-            dan mudah digunakan."
-          </blockquote>
+          <blockquote className="pull" style={{ marginTop: 'clamp(48px, 6vw, 72px)' }}>"{s.quote}"</blockquote>
         </Reveal>
       </div>
 
@@ -251,30 +219,18 @@ function Services() {
 /* WHY                                                                 */
 /* ------------------------------------------------------------------ */
 function Why() {
-  const items = [
-    { title: 'Pendekatan moden & praktikal',
-      desc: 'Clean, professional, relevan dengan keperluan semasa.' },
-    { title: 'Mobile-first development',
-      desc: 'Every system built with mobile in mind from day one.' },
-    { title: 'Fokus kepada komuniti',
-      desc: 'Designed to connect organizations with their community.' },
-    { title: 'Customized untuk anda',
-      desc: 'No one-size-fits-all. Setiap sistem disesuaikan dengan keperluan.' },
-    { title: 'Support selepas projek',
-      desc: 'Our relationship doesn’t end at launch — we keep the system running.' },
-    { title: 'Sistem yang berkembang',
-      desc: 'Flexible architecture — grows as your organization grows.' },
-  ];
+  const { t } = useLang();
+  const w = t.why;
   return (
     <section id="why" className="why">
       <div className="wrap">
         <div className="sec-head">
-          <Reveal><span className="eyebrow">Kelebihan Kami / Why choose NISE</span></Reveal>
-          <Reveal delay={100}><h2>Why teams trust us with their digital backbone.</h2></Reveal>
+          <Reveal><span className="eyebrow">{w.eyebrow}</span></Reveal>
+          <Reveal delay={100}><h2>{w.h2}</h2></Reveal>
         </div>
 
         <Stagger className="why-grid">
-          {items.map((it, i) => (
+          {w.items.map((it, i) => (
             <div key={i} className="why-item">
               <div className="why-num">{String(i + 1).padStart(2, '0')}</div>
               <h3 className="why-title">{it.title}</h3>
@@ -328,28 +284,20 @@ function Why() {
 /* PROCESS                                                             */
 /* ------------------------------------------------------------------ */
 function Process() {
-  const steps = [
-    { n: '01', title: 'Konsultasi', en: 'Consultation',
-      desc: 'We listen first. Understand the organization, people, and real friction.' },
-    { n: '02', title: 'Rancangan', en: 'Planning',
-      desc: 'A clear plan — scope, structure, timeline — before any code is written.' },
-    { n: '03', title: 'Pembangunan', en: 'Development',
-      desc: 'Built in transparent stages. We don’t move forward without your approval.' },
-    { n: '04', title: 'Pelancaran', en: 'Launch & beyond',
-      desc: 'Launch is the start. Training, monitoring, and ongoing support.' },
-  ];
+  const { t } = useLang();
+  const p = t.process;
   return (
     <section id="process" className="process">
       <div className="wrap">
         <div className="sec-head">
-          <Reveal><span className="eyebrow">Proses Kerja Kami / How we work</span></Reveal>
-          <Reveal delay={100}><h2>A clear path from <span className="serif" style={{ color: 'var(--accent)' }}>idea</span> to launched system.</h2></Reveal>
+          <Reveal><span className="eyebrow">{p.eyebrow}</span></Reveal>
+          <Reveal delay={100}><h2>{p.h2.pre}<span className="serif" style={{ color: 'var(--accent)' }}>{p.h2.accent}</span>{p.h2.post}</h2></Reveal>
         </div>
 
         <div className="timeline">
           <div className="track" />
           <Stagger className="steps">
-            {steps.map((s, i) => (
+            {p.steps.map((s, i) => (
               <div key={i} className="step">
                 <div className="step-dot" aria-hidden="true">
                   <span className="step-pulse" />
@@ -357,7 +305,6 @@ function Process() {
                 <div className="step-content">
                   <div className="step-num">{s.n}</div>
                   <h3 className="step-title">{s.title}</h3>
-                  <div className="step-en">{s.en}</div>
                   <p className="body" style={{ marginTop: 12 }}>{s.desc}</p>
                 </div>
               </div>
@@ -366,9 +313,7 @@ function Process() {
         </div>
 
         <Reveal>
-          <p className="process-foot">
-            Setiap peringkat ada komunikasi aktif. No next stage without your approval.
-          </p>
+          <p className="process-foot">{p.foot}</p>
         </Reveal>
       </div>
 
@@ -429,7 +374,6 @@ function Process() {
 
         .step-num { font-size: 12px; color: var(--ink-4); letter-spacing: .12em; font-weight: 500; }
         .step-title { font-size: 22px; font-weight: 500; letter-spacing: -.02em; margin-top: 6px; }
-        .step-en { font-size: 13px; color: var(--accent); margin-top: 2px; font-weight: 500; letter-spacing: -.005em; }
 
         .process-foot {
           margin-top: clamp(40px, 5vw, 64px);

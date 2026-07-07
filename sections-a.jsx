@@ -4,34 +4,33 @@
 const { useState: useStateA, useEffect: useEffectA, useRef: useRefA } = React;
 
 function Hero() {
+  const { t } = useLang();
+  const h = t.hero;
+  const [h1Ref, h1Seen] = useReveal();
   return (
     <section id="top" className="hero">
       <div className="pattern-bg" />
       <div className="wrap hero-wrap">
         <div className="hero-text">
           <Reveal>
-            <span className="chip"><span className="dot" /> Smart Digital Ecosystem</span>
+            <span className="chip"><span className="dot" /> {h.chip}</span>
           </Reveal>
 
-          <h1 className="hero-h1 lines">
-            <span>Smart digital</span>
-            <span>ecosystem<span className="serif" style={{ color: 'var(--accent)' }}> solutions</span></span>
-            <span>for modern organizations.</span>
+          <h1 ref={h1Ref} className={`hero-h1 lines ${h1Seen ? 'in' : ''}`}>
+            <span>{h.h1.line1}</span>
+            <span>{h.h1.line2}<span className="serif" style={{ color: 'var(--accent)' }}>{h.h1.accent}</span></span>
+            <span>{h.h1.line3}</span>
           </h1>
 
           <Reveal delay={300}>
-            <p className="lead">
-              Websites, dashboards and centralized digital systems —
-              built for organizations, masjid and communities
-              that need to <em className="serif" style={{ color: 'var(--ink)' }}>last</em>.
-            </p>
+            <p className="lead">{h.lead}</p>
           </Reveal>
 
           <Reveal delay={500}>
             <div className="hero-cta">
-              <Btn href="#contact">Book free consultation</Btn>
+              <Btn href="#contact">{h.ctaPrimary}</Btn>
               <Btn kind="ghost" href="#portfolio" icon={false}>
-                View demo
+                {h.ctaSecondary}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
               </Btn>
             </div>
@@ -39,20 +38,15 @@ function Hero() {
 
           <Reveal delay={700}>
             <div className="hero-meta">
-              <div className="hero-meta-item">
-                <div className="hero-meta-num">4+</div>
-                <div className="hero-meta-lbl">Core systems<br/>per ecosystem</div>
-              </div>
-              <div className="hero-meta-divider" />
-              <div className="hero-meta-item">
-                <div className="hero-meta-num">100%</div>
-                <div className="hero-meta-lbl">Mobile-first<br/>development</div>
-              </div>
-              <div className="hero-meta-divider" />
-              <div className="hero-meta-item">
-                <div className="hero-meta-num">Long-term</div>
-                <div className="hero-meta-lbl">Partnership &<br/>maintenance</div>
-              </div>
+              {h.meta.map((m, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && <div className="hero-meta-divider" />}
+                  <div className="hero-meta-item">
+                    <div className="hero-meta-num">{m.num}</div>
+                    <div className="hero-meta-lbl">{m.lbl[0]}<br/>{m.lbl[1]}</div>
+                  </div>
+                </React.Fragment>
+              ))}
             </div>
           </Reveal>
         </div>
@@ -101,44 +95,40 @@ function Hero() {
 /* ABOUT                                                               */
 /* ------------------------------------------------------------------ */
 function About() {
+  const { t } = useLang();
+  const a = t.about;
+  const [h2Ref, h2Seen] = useReveal();
   return (
     <section id="about" className="about">
       <div className="wrap">
         <div className="about-grid">
           <Reveal>
-            <span className="eyebrow">Siapa Kami / About us</span>
+            <span className="eyebrow">{a.eyebrow}</span>
           </Reveal>
 
           <div className="about-main">
-            <h2 className="lines">
-              <span>We build the digital</span>
-              <span>infrastructure that helps</span>
-              <span>organizations grow with</span>
-              <span><span className="serif" style={{ color: 'var(--accent)' }}>clarity</span> and structure.</span>
+            <h2 ref={h2Ref} className={`lines ${h2Seen ? 'in' : ''}`}>
+              <span>{a.h2.lines[0]}</span>
+              <span>{a.h2.lines[1]}</span>
+              <span>{a.h2.lines[2]}</span>
+              <span><span className="serif" style={{ color: 'var(--accent)' }}>{a.h2.accent}</span>{a.h2.tail}</span>
             </h2>
 
             <Reveal delay={300}>
-              <p className="lead" style={{ marginTop: 28 }}>
-                A digital solutions company building websites, systems
-                and centralized platforms — for modern organizations,
-                masjid and communities across Malaysia.
-              </p>
+              <p className="lead" style={{ marginTop: 28 }}>{a.lead}</p>
             </Reveal>
 
             <Reveal delay={500}>
-              <p className="body" style={{ marginTop: 18, maxWidth: '56ch' }}>
-                Not just a web agency. We build systems that help
-                organizations grow — more structured, closer to the community.
-              </p>
+              <p className="body" style={{ marginTop: 18, maxWidth: '56ch' }}>{a.body}</p>
             </Reveal>
           </div>
 
           <Stagger className="about-list">
-            <div className="about-item"><Icon.globe /><span>Modern, responsive websites</span></div>
-            <div className="about-item"><Icon.grid /><span>Centralized admin dashboards</span></div>
-            <div className="about-item"><Icon.users /><span>Digital community systems</span></div>
-            <div className="about-item"><Icon.layers /><span>Operations management platforms</span></div>
-            <div className="about-item"><Icon.cloud /><span>End-to-end digital ecosystems</span></div>
+            <div className="about-item"><Icon.globe /><span>{a.list[0]}</span></div>
+            <div className="about-item"><Icon.grid /><span>{a.list[1]}</span></div>
+            <div className="about-item"><Icon.users /><span>{a.list[2]}</span></div>
+            <div className="about-item"><Icon.layers /><span>{a.list[3]}</span></div>
+            <div className="about-item"><Icon.cloud /><span>{a.list[4]}</span></div>
           </Stagger>
         </div>
       </div>
@@ -173,30 +163,21 @@ function About() {
 /* PROBLEM                                                             */
 /* ------------------------------------------------------------------ */
 function Problem() {
-  const items = [
-    { icon: 'unplug', title: 'Disconnected systems',
-      desc: 'Data berselerak antara spreadsheet, group chat dan notes. Tiada satu sumber rujukan.' },
-    { icon: 'doc', title: 'Manual, repetitive processes',
-      desc: 'Hours every week forwarding messages, updating lists, rebuilding the same reports.' },
-    { icon: 'chat', title: 'Poor community communication',
-      desc: 'Pengumuman penting hilang dalam thread chat — the people who matter most are the last to know.' },
-  ];
+  const { t } = useLang();
+  const p = t.problem;
   return (
     <section id="problem" className="problem">
       <div className="wrap">
         <div className="sec-head">
-          <Reveal><span className="eyebrow">Realiti Hari Ini / Today's reality</span></Reveal>
-          <Reveal delay={100}><h2>The reality most organizations actually live in.</h2></Reveal>
+          <Reveal><span className="eyebrow">{p.eyebrow}</span></Reveal>
+          <Reveal delay={100}><h2>{p.h2}</h2></Reveal>
           <Reveal delay={200}>
-            <p className="lead">
-              Banyak organisasi aktif dan penuh semangat — but the systems behind them
-              haven't kept up. Friction, missed updates, burnout.
-            </p>
+            <p className="lead">{p.lead}</p>
           </Reveal>
         </div>
 
         <Stagger className="grid-3 problem-cards">
-          {items.map((it, i) => {
+          {p.items.map((it, i) => {
             const I = Icon[it.icon];
             return (
               <article key={i} className="card problem-card">
@@ -209,10 +190,7 @@ function Problem() {
         </Stagger>
 
         <Reveal>
-          <blockquote className="pull problem-quote">
-            "Banyak organisasi sebenarnya aktif — tetapi sistem mereka
-            masih tidak tersusun."
-          </blockquote>
+          <blockquote className="pull problem-quote">"{p.quote}"</blockquote>
         </Reveal>
       </div>
 

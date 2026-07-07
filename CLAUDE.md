@@ -58,7 +58,7 @@ Content is **bilingual Malay/English** throughout — eyebrow labels use "BM / E
 - Masjid Al-Itisam: `masjidalitisam.vercel.app`
 - Design Cetak: `designcetak.com`
 
-Contact: WhatsApp `+60111142046` (Danny), email `ats.danial@nuklearmarketing.com`.
+Contact: WhatsApp `+60 11-1142 0466` (Danny), email `ats.danial@nuklearmarketing.com`.
 
 ## Key Conventions
 

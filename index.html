@@ -267,6 +267,21 @@
   }
   .nav-links a:hover { background: var(--bg-soft); color: var(--ink); }
 
+  /* Language toggle */
+  .lang-toggle {
+    position: relative; display: flex; padding: 3px; gap: 2px;
+    border-radius: 999px; background: var(--bg-soft);
+    border: 1px solid var(--line); flex-shrink: 0;
+  }
+  .lang-toggle span {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 30px; height: 26px; padding: 0 4px;
+    border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: .02em;
+    color: var(--ink-3);
+    transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+  }
+  .lang-toggle span.on { background: var(--accent); color: white; }
+
   /* -------------------------------------------------------------- */
   /* MISC                                                            */
   /* -------------------------------------------------------------- */
@@ -363,6 +378,7 @@
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
 <script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="i18n.jsx"></script>
 <script type="text/babel" src="components.jsx"></script>
 <script type="text/babel" src="sections-a.jsx"></script>
 <script type="text/babel" src="sections-b.jsx"></script>

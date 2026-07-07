@@ -16,7 +16,7 @@ function App() {
   }, [t.accent, t.pattern, t.motion]);
 
   return (
-    <>
+    <LangProvider>
       <Nav />
       <main>
         <Hero />
@@ -72,7 +72,7 @@ function App() {
           onChange={(v) => setTweak('motion', v)}
         />
       </TweaksPanel>
-    </>
+    </LangProvider>
   );
 }
 
