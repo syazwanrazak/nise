@@ -344,9 +344,42 @@
     width: 44px; height: 44px; border-radius: 999px;
     background: var(--ink); color: var(--bg);
     border: 0; display: grid; place-items: center;
+    cursor: pointer;
   }
   @media (min-width: 980px) { .nav-cta-mobile { display: none; } }
   @media (max-width: 979px) { .nav-cta-desktop { display: none; } }
+
+  /* Mobile nav dropdown panel */
+  .nav-mobile-panel {
+    position: fixed; top: 78px; left: 16px; right: 16px;
+    z-index: 49; max-width: 1240px; margin: 0 auto;
+    background: rgba(255,255,255,.98);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: var(--shadow-2);
+    padding: 10px;
+    display: flex; flex-direction: column; gap: 8px;
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease), visibility 0s linear var(--t-fast);
+  }
+  .nav-mobile-panel.open {
+    opacity: 1; visibility: visible; transform: none;
+    transition: opacity var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+  }
+  @media (min-width: 980px) { .nav-mobile-panel { display: none; } }
+  .nav-mobile-links { display: flex; flex-direction: column; }
+  .nav-mobile-links a {
+    padding: 14px 16px; border-radius: 12px; font-size: 16px; font-weight: 500; color: var(--ink-2);
+    transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+  }
+  .nav-mobile-links a:hover, .nav-mobile-links a:active { background: var(--bg-soft); color: var(--ink); }
+  .nav-mobile-panel .btn { justify-content: center; margin: 2px 6px 6px; }
+  .nav-mobile-scrim {
+    position: fixed; inset: 0; z-index: 48;
+    background: rgba(20,20,16,.28);
+    backdrop-filter: blur(2px);
+  }
+  @media (min-width: 980px) { .nav-mobile-scrim { display: none; } }
 
   /* Footer */
   footer.site-foot { background: var(--bg-deep); color: #C9D3CD; padding: 80px 0 32px; position: relative; overflow: hidden; }

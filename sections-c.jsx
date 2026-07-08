@@ -295,8 +295,8 @@ function Portfolio() {
 /* TEAM                                                                */
 /* ------------------------------------------------------------------ */
 const TEAM_META = [
-  { name: 'Danny',   initials: 'D', tint: 'a' },
-  { name: 'Syazwan', initials: 'S', tint: 'b' },
+  { name: 'Danny',   photo: 'assets/team/danny.jpg',   tint: 'a' },
+  { name: 'Syazwan', photo: 'assets/team/syazwan.png',  tint: 'b' },
 ];
 
 function Team() {
@@ -318,15 +318,7 @@ function Team() {
           {members.map((m, i) => (
             <div key={i} className="team-card">
               <div className={`team-avatar tint-${m.tint}`}>
-                <span>{m.initials}</span>
-                <svg className="team-avatar-pattern" viewBox="0 0 200 200" aria-hidden="true">
-                  <g fill="none" stroke="currentColor" strokeWidth="1" opacity=".18">
-                    <circle cx="100" cy="100" r="80"/>
-                    <circle cx="100" cy="100" r="55"/>
-                    <circle cx="100" cy="100" r="30"/>
-                    <path d="M100 20 L100 180 M20 100 L180 100 M40 40 L160 160 M160 40 L40 160"/>
-                  </g>
-                </svg>
+                <img className="team-avatar-photo" src={m.photo} alt={m.name} />
               </div>
               <div className="team-info">
                 <h3 className="team-name">{m.name}</h3>
@@ -353,11 +345,9 @@ function Team() {
         .team-avatar {
           position: relative; aspect-ratio: 1; min-height: 180px;
           display: grid; place-items: center;
-          color: white; font-size: 64px; font-family: var(--serif); font-style: italic; font-weight: 500;
           overflow: hidden;
         }
-        .team-avatar > span { position: relative; z-index: 2; line-height: 1; }
-        .team-avatar-pattern { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .team-avatar-photo { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
         .tint-a { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); }
         .tint-b { background: linear-gradient(135deg, #14253C 0%, var(--accent) 100%); }
 

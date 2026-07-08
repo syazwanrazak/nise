@@ -79,6 +79,8 @@ const Icon = {
   mail:   (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...p}><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>,
   pin:    (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M12 22s7-6 7-12a7 7 0 1 0-14 0c0 6 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>,
   phone:  (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>,
+  menu:   (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M4 7h16M4 12h16M4 17h16"/></svg>,
+  close:  (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M6 6l12 12M18 6L6 18"/></svg>,
 };
 
 /* ------------------------------------------------------------------ */
@@ -113,6 +115,7 @@ function Btn({ kind = 'primary', children, href, onClick, icon = true, ...rest }
 /* ------------------------------------------------------------------ */
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { t } = useLang();
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -120,26 +123,52 @@ function Nav() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onHash = () => setMenuOpen(false);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, [menuOpen]);
   return (
-    <nav className={`nav ${scrolled ? 'scrolled' : ''}`} aria-label="Primary">
-      <a href="#top" className="nav-brand" aria-label="NISE Enterprise home">
-        <span className="mark mark-logo" aria-hidden="true" />
-        <span>NISE <span style={{ color: 'var(--ink-3)', fontWeight: 400 }}>Enterprise</span></span>
-      </a>
-      <div className="nav-links">
-        {t.nav.links.map((l) => (
-          <a key={l.href} href={l.href}>{l.label}</a>
-        ))}
+    <>
+      <nav className={`nav ${scrolled ? 'scrolled' : ''}`} aria-label="Primary">
+        <a href="#top" className="nav-brand" aria-label="NISE Enterprise home" onClick={() => setMenuOpen(false)}>
+          <span className="mark mark-logo" aria-hidden="true" />
+          <span>NISE <span style={{ color: 'var(--ink-3)', fontWeight: 400 }}>Enterprise</span></span>
+        </a>
+        <div className="nav-links">
+          {t.nav.links.map((l) => (
+            <a key={l.href} href={l.href}>{l.label}</a>
+          ))}
+        </div>
+        <LangToggle />
+        <a href="#contact" className="btn nav-cta-desktop" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>
+          {t.nav.cta}
+          <span className="arr"><Icon.arrow /></span>
+        </a>
+        <button
+          type="button"
+          className="nav-menu-btn nav-cta-mobile"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen(v => !v)}
+        >
+          {menuOpen ? <Icon.close /> : <Icon.menu />}
+        </button>
+      </nav>
+      <div className={`nav-mobile-panel ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
+        <div className="nav-mobile-links">
+          {t.nav.links.map((l) => (
+            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
+          ))}
+        </div>
+        <a href="#contact" className="btn" onClick={() => setMenuOpen(false)}>
+          {t.nav.cta}
+          <span className="arr"><Icon.arrow /></span>
+        </a>
       </div>
-      <LangToggle />
-      <a href="#contact" className="btn nav-cta-desktop" style={{ height: 40, padding: '0 16px', fontSize: 14 }}>
-        {t.nav.cta}
-        <span className="arr"><Icon.arrow /></span>
-      </a>
-      <a href="#contact" className="nav-menu-btn nav-cta-mobile" aria-label="Contact">
-        <Icon.arrow />
-      </a>
-    </nav>
+      {menuOpen && <div className="nav-mobile-scrim" onClick={() => setMenuOpen(false)} />}
+    </>
   );
 }
 

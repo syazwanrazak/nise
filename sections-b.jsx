@@ -172,8 +172,15 @@ function Services() {
         <Stagger className="services-grid">
           {s.items.map((it, i) => {
             const I = Icon[it.icon];
+            const waText = encodeURIComponent(`Hi NISE Enterprise, I'm interested in ${it.title}. Can you share more details?`);
             return (
-              <article key={i} className="service card cardlink" tabIndex="0">
+              <a
+                key={i}
+                className="service card cardlink"
+                href={`https://wa.me/601111420466?text=${waText}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <div className="service-top">
                   <div className="icon-tile"><I /></div>
                   <span className="service-tag">{it.tag}</span>
@@ -187,7 +194,7 @@ function Services() {
                 <span className="hover-arr" style={{ marginTop: 24 }}>
                   {s.learnMore} <Icon.arrow />
                 </span>
-              </article>
+              </a>
             );
           })}
         </Stagger>
